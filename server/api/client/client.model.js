@@ -7,7 +7,7 @@ import {Schema} from 'mongoose';
 
 const authTypes = ['github', 'twitter', 'facebook', 'google'];
 
-var UserSchema = new Schema({
+var ClientSchema = new Schema({
   name: String,
   email: {
     type: String,
@@ -15,14 +15,15 @@ var UserSchema = new Schema({
   },
   role: {
     type: String,
-    default: 'owner'
+    default: 'client'
   },
   photo: String,
-  phone: String,
+  owner: Schema.Types.ObjectId,
   referralId: String,
+  referrer: Schema.Types.ObjectId,
   referrals: [{_id: Schema.Types.ObjectId, paid: Boolean}],
+  credits: Number,
   password: String,
-  serviceType: String,
   provider: String,
   salt: String,
   facebook: {},
@@ -36,7 +37,7 @@ var UserSchema = new Schema({
  */
 
 // Public profile information
-UserSchema
+ClientSchema
   .virtual('profile')
   .get(function() {
     return {
@@ -46,7 +47,7 @@ UserSchema
   });
 
 // Non-sensitive info we'll be putting in the token
-UserSchema
+ClientSchema
   .virtual('token')
   .get(function() {
     return {
@@ -60,7 +61,7 @@ UserSchema
  */
 
 // Validate empty email
-UserSchema
+ClientSchema
   .path('email')
   .validate(function(email) {
     if (authTypes.indexOf(this.provider) !== -1) {
@@ -70,7 +71,7 @@ UserSchema
   }, 'Email cannot be blank');
 
 // Validate empty password
-UserSchema
+ClientSchema
   .path('password')
   .validate(function(password) {
     if (authTypes.indexOf(this.provider) !== -1) {
@@ -80,7 +81,7 @@ UserSchema
   }, 'Password cannot be blank');
 
 // Validate email is not taken
-UserSchema
+ClientSchema
   .path('email')
   .validate(function(value, respond) {
     var self = this;
@@ -106,7 +107,7 @@ var validatePresenceOf = function(value) {
 /**
  * Pre-save hook
  */
-UserSchema
+ClientSchema
   .pre('save', function(next) {
     // Handle new/update passwords
     if (!this.isModified('password')) {
@@ -136,7 +137,7 @@ UserSchema
 /**
  * Methods
  */
-UserSchema.methods = {
+ClientSchema.methods = {
   /**
    * Authenticate - check if the passwords are the same
    *
@@ -230,4 +231,4 @@ UserSchema.methods = {
   }
 };
 
-export default mongoose.model('User', UserSchema);
+export default mongoose.model('Client', ClientSchema);

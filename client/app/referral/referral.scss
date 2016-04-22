@@ -1,0 +1,111 @@
+/* Customize container */
+.custom-container {
+  width: 100%;
+  padding: 0px;
+}
+@media (min-width: 768px) {
+  .container-referral {
+    /*max-width: 730px;*/
+  }
+}
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+#bg {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* Supporting marketing content */
+.marketing {
+  margin: 40px 0;
+}
+.marketing p + h4 {
+  margin-top: 28px;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .marketing {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  #bg {
+    border-bottom: 0;
+  }
+}
+
+#search-container {
+  position: relative;
+}
+
+#search-bg {
+  background: url('../../assets/images/ffffff.png') no-repeat fixed center;
+  background-size: cover;
+  /* Absolutely position it, but stretch it to all four corners, then put it just behind #search's z-index */
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  z-index: 99;
+
+  /* Pull the background 70px higher to the same place as #bg's */
+  
+  /*
+  -webkit-filter: blur(1px);
+  filter: url('/media/blur.svg#blur');
+  filter: blur(1px);
+  */
+}
+
+#search {
+  /* Put this on top of the blurred layer */
+  position: relative;
+  z-index: 100;
+  padding: 50px;
+  background: rgb(34,34,34); /* for IE */
+  background: rgba(0,0,0,0.65);
+}
+
+#search p {
+  color: white;
+  font-size: 2em;
+  font-weight: 200;
+  margin-bottom: 5em;
+}
+
+#search h1 {
+  color: white;
+  font-size: 5.5em;
+  line-height: 1.1;
+  font-weight: 400;  
+  margin-top: 10%;
+}
+
+@media (max-width: 600px ) {
+  #bg {
+    padding: 10px;
+  }
+}
+
+.facebook {
+  width: 220px;
+  min-width: 210px;
+  margin: auto;
+}
+
+.sign-up {
+  margin-top: 2em;
+  display: flex;
+  justify-content: center;
+}
+
+.or {
+  font-size: 1.5em;
+  text-align: center;
+}
