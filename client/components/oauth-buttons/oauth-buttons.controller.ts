@@ -1,8 +1,13 @@
 'use strict';
 
 angular.module('referralApp')
-  .controller('OauthButtonsCtrl', function($window) {
+  .controller('OauthButtonsCtrl', function($window, $stateParams) {
     this.loginOauth = function(provider) {
-      $window.location.href = '/auth/' + provider;
+		if ($stateParams.id) {
+			$window.location.href = '/auth/' + provider + '/' + $stateParams.id;
+		}
+		else {
+			$window.location.href = '/auth/' + provider;
+		}
     };
   });

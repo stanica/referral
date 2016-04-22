@@ -2,6 +2,7 @@ node_modules
 public
 .tmp
 .sass-cache
+.tscache
 .idea
 client/bower_components
 dist

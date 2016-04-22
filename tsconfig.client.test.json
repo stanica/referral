@@ -10,6 +10,7 @@
     ],
     "files": [
         "client/app/main/main.controller.spec.ts",
+        "client/app/referral/referral.controller.spec.ts",
         "client/components/oauth-buttons/oauth-buttons.controller.spec.ts",
         "client/components/oauth-buttons/oauth-buttons.directive.spec.ts",
         "client/components/ui-router/ui-router.mock.ts",

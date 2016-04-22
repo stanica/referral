@@ -142,7 +142,7 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
       */
     hasRole(role, callback) {
       var hasRole = function(r, h) {
-        return userRoles.indexOf(r) >= userRoles.indexOf(h);
+      return userRoles.indexOf(r) >= userRoles.indexOf(h);
       };
 
       if (arguments.length < 2) {

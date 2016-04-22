@@ -9,7 +9,7 @@ export function setup(User, config) {
     profileFields: [
       'displayName',
       'emails',
-      'picture.type(large)'
+      'picture.width(999)'
     ]
   },
   function(accessToken, refreshToken, profile, done) {
@@ -18,12 +18,11 @@ export function setup(User, config) {
         if (user) {
           return done(null, user);
         }
-
         user = new User({
           name: profile.displayName,
           email: profile.emails[0].value,
           photo: profile.photos[0].value,
-          role: 'user',
+          role: 'client',
           provider: 'facebook',
           facebook: profile._json
         });

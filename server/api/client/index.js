@@ -1,8 +1,8 @@
 'use strict';
 
 import {Router} from 'express';
-import * as controller from './user.controller';
-import * as auth from '../../auth/auth.service';
+import * as controller from './client.controller';
+import * as auth from '../../authClient/auth.service';
 
 var router = new Router();
 
@@ -11,7 +11,6 @@ router.delete('/:id', auth.hasRole('admin'), controller.destroy);
 router.get('/me', auth.isAuthenticated(), controller.me);
 router.put('/:id/password', auth.isAuthenticated(), controller.changePassword);
 router.get('/:id', auth.isAuthenticated(), controller.show);
-router.get('/referral/:id', controller.getReferralInfo);
 router.post('/', controller.create);
 
 module.exports = router;
