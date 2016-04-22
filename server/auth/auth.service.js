@@ -46,7 +46,6 @@ export function hasRole(roleRequired) {
   if (!roleRequired) {
     throw new Error('Required role needs to be set');
   }
-
   return compose()
     .use(isAuthenticated())
     .use(function meetsRequirements(req, res, next) {

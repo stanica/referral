@@ -15,9 +15,14 @@ var UserSchema = new Schema({
   },
   role: {
     type: String,
-    default: 'user'
+    default: 'owner'
   },
+  photo: String,
+  phone: String,
+  referralId: String,
+  referrals: [{_id: Schema.Types.ObjectId, paid: Boolean}],
   password: String,
+  serviceType: String,
   provider: String,
   salt: String,
   facebook: {},

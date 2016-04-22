@@ -3,7 +3,7 @@
 
 angular.module('referralApp.constants', [])
 
-.constant('appConfig', {userRoles:['guest','user','admin']})
+.constant('appConfig', {userRoles:['guest','user','client','owner','admin']})
 
 ;
 })(angular);

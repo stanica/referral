@@ -5,7 +5,8 @@
 
 'use strict';
 import Thing from '../api/thing/thing.model';
-import User from '../api/user/user.model';
+import Client from '../api/client/client.model';
+import Owner from '../api/user/user.model';
 
 Thing.find({}).remove()
   .then(() => {
@@ -39,21 +40,75 @@ Thing.find({}).remove()
     });
   });
 
-User.find({}).remove()
+var owner1Id, owner2Id;
+
+Owner.find({}).remove()
   .then(() => {
-    User.create({
+    var owner1 = new Owner({
       provider: 'local',
-      name: 'Test User',
-      email: 'test@example.com',
-      password: 'test'
-    }, {
-      provider: 'local',
-      role: 'admin',
-      name: 'Admin',
-      email: 'admin@example.com',
-      password: 'admin'
-    })
-    .then(() => {
-      console.log('finished populating users');
+      name: 'Haircut 4 You',
+      email: 'owner@example.com',
+      password: 'owner',
+      photo: 'http://i.imgur.com/OpbrAJK.jpg',
+      referralId: '1234',
+      referrals: [],
+      serviceType: 'Hairdressing',
+      phone: '416-555-0101'
+    });
+    owner1.save(function(err, owner1){
+      owner1Id = owner1._id;
+      var owner2 = new Owner({
+        provider: 'local',
+        name: 'Sarah Campbell',
+        email: 'owner2@example.com',
+        password: 'owner2',
+        photo: 'https://scontent-ord1-1.xx.fbcdn.net/hphotos-xla1/t31.0-8/s960x960/12970998_10209160382274967_4651504399281583408_o.jpg',
+        referralId: '123',
+        referrals: [],
+        serviceType: 'Photographer',
+        phone: '416-555-2323'
+      });
+
+      owner2.save(function(err,owner2){
+        Client.find({}).remove()
+        .then(() => {
+          var client1 = new Client({
+            provider: 'local',
+            role: 'client',
+            name: 'Test Client',
+            email: 'client@example.com',
+            password: 'client',
+            photo: 'http://i.imgur.com/OpbrAJK.jpg',
+            owner: owner1._id,
+            referrals: [],
+            referralId: '321',
+            referrer: null,
+            credits: 20
+          });
+          client1.save(function(err, client1){
+           var client2 = new Client({
+              provider: 'local',
+              role: 'client',
+              name: 'Test Client 2',
+              email: 'client2@example.com',
+              password: 'client2',
+              photo: 'http://i.imgur.com/wYynYQu.jpg',
+              owner: owner1._id,
+              referrals: [],
+              referralId: '4321',
+              referrer: null,
+              credits: 20
+            });
+           client2.save()
+            .then(() => {
+              console.log('finished populating clients');
+            });
+          });
+        });
+      })
+      .then(() => {
+        console.log('finished populating owners');
+      });
     });
   });
+

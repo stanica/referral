@@ -3,6 +3,7 @@
 import express from 'express';
 import passport from 'passport';
 import {setTokenCookie} from '../auth.service';
+import {setData} from '../auth.service';
 
 var router = express.Router();
 

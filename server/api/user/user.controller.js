@@ -116,6 +116,21 @@ export function me(req, res, next) {
 }
 
 /**
+ * Get user info for referral page
+  */
+export function getReferralInfo(req, res, next){
+  console.log('getting referral', req.params.id);
+  User.findOne({referralId: req.params.id}, '-salt -password -_id -role -referrals -__v -provider -phone').exec()
+    .then(user => {
+      if (!user) {
+        res.redirect('/');
+      }
+      res.json(user);
+    })
+    .catch(err => next(err));
+}
+
+/**
  * Authentication callback
  */
 export function authCallback(req, res, next) {
