@@ -53,7 +53,63 @@ Owner.find({}).remove()
       referralId: '1234',
       referrals: [],
       serviceType: 'Hairdressing',
-      phone: '416-555-0101'
+      phone: '416-555-0101',
+      packages: [
+          {
+            name: 'Men\'s Cut',
+            currency: '$',
+            price: 10,
+            unit: '',
+            text: '',
+            features: [
+              {
+                amount: '15',
+                type: 'minutes'
+              }
+            ],
+            highlighted: false
+          },
+          {
+            name: 'Women\'s Cut',
+            currency: '$',
+            price: 50,
+            unit: '',
+            text: '',
+            features: [
+              {
+                amount: '40',
+                type: 'minutes'
+              },
+              {
+                amount: 'Full head',
+                type: 'wash'
+              }
+            ],
+            highlighted: false
+          },
+          {
+            name: 'Hair Dying',
+            currency: '$',
+            price: 85,
+            unit: '',
+            text: '',
+            features: [
+              {
+                amount: '2',
+                type: 'hours'
+              },
+              {
+                amount: 'Full head',
+                type: 'wash'
+              },
+              {
+                amount: '1',
+                type: 'color'
+              }
+            ],
+            highlighted: false
+          }
+        ]
     });
     owner1.save(function(err, owner1){
       owner1Id = owner1._id;
@@ -66,7 +122,75 @@ Owner.find({}).remove()
         referralId: '123',
         referrals: [],
         serviceType: 'Photographer',
-        phone: '416-555-2323'
+        phone: '416-555-2323',
+        packages: [
+          {
+            name: 'Basic',
+            currency: '$',
+            price: 800,
+            unit: '',
+            text: 'Half day',
+            features: [
+              {
+                amount: '300',
+                type: 'photos'
+              },
+              {
+                amount: '4',
+                type: 'prints'
+              }
+            ],
+            highlighted: false
+          },
+          {
+            name: 'Advanced',
+            currency: '$',
+            price: 1400,
+            unit: '',
+            text: 'Full day',
+            features: [
+              {
+                amount: '600',
+                type: 'photos'
+              },
+              {
+                amount: '8',
+                type: 'prints'
+              },
+              {
+                amount: '1',
+                type: 'hand-made photo album'
+              }
+            ],
+            highlighted: true
+          },
+          {
+            name: 'Expert',
+            currency: '$',
+            price: 2000,
+            unit: '',
+            text: 'Two days',
+            features: [
+              {
+                amount: '800',
+                type: 'photos'
+              },
+              {
+                amount: '16',
+                type: 'prints'
+              },
+              {
+                amount: '1',
+                type: 'hand-made photo album'
+              },
+              {
+                amount: '1',
+                type: 'second shooter'
+              }
+            ],
+            highlighted: false
+          }
+        ]
       });
 
       owner2.save(function(err,owner2){

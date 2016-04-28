@@ -7,6 +7,11 @@ import {Schema} from 'mongoose';
 
 const authTypes = ['github', 'twitter', 'facebook', 'google'];
 
+var featuresSchema = new Schema({
+  amount: String,
+  type: String
+});
+
 var UserSchema = new Schema({
   name: String,
   email: {
@@ -28,7 +33,19 @@ var UserSchema = new Schema({
   facebook: {},
   twitter: {},
   google: {},
-  github: {}
+  packages: [
+    {
+      name: String,
+      currency: String,
+      price: Number,
+      unit: String,
+      text: String,
+      features: [
+        featuresSchema
+      ],
+      highlighted: Boolean
+    }
+  ]
 });
 
 /**

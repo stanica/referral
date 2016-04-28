@@ -1,6 +1,6 @@
 'use strict';
 
-import User from './user.model';
+import Owner from './user.model';
 import passport from 'passport';
 import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
@@ -24,7 +24,7 @@ function handleError(res, statusCode) {
  * restriction: 'admin'
  */
 export function index(req, res) {
-  return User.find({}, '-salt -password').exec()
+  return Owner.find({}, '-salt -password').exec()
     .then(users => {
       res.status(200).json(users);
     })
@@ -35,10 +35,10 @@ export function index(req, res) {
  * Creates a new user
  */
 export function create(req, res, next) {
-  var newUser = new User(req.body);
-  newUser.provider = 'local';
-  newUser.role = 'user';
-  newUser.save()
+  var newOwner = new Owner(req.body);
+  newOwner.provider = 'local';
+  newOwner.role = 'user';
+  newOwner.save()
     .then(function(user) {
       var token = jwt.sign({ _id: user._id }, config.secrets.session, {
         expiresIn: 60 * 60 * 5
@@ -54,7 +54,7 @@ export function create(req, res, next) {
 export function show(req, res, next) {
   var userId = req.params.id;
 
-  return User.findById(userId).exec()
+  return Owner.findById(userId).exec()
     .then(user => {
       if (!user) {
         return res.status(404).end();
@@ -69,7 +69,7 @@ export function show(req, res, next) {
  * restriction: 'admin'
  */
 export function destroy(req, res) {
-  return User.findByIdAndRemove(req.params.id).exec()
+  return Owner.findByIdAndRemove(req.params.id).exec()
     .then(function() {
       res.status(204).end();
     })
@@ -84,7 +84,7 @@ export function changePassword(req, res, next) {
   var oldPass = String(req.body.oldPassword);
   var newPass = String(req.body.newPassword);
 
-  return User.findById(userId).exec()
+  return Owner.findById(userId).exec()
     .then(user => {
       if (user.authenticate(oldPass)) {
         user.password = newPass;
@@ -105,7 +105,7 @@ export function changePassword(req, res, next) {
 export function me(req, res, next) {
   var userId = req.user._id;
 
-  return User.findOne({ _id: userId }, '-salt -password').exec()
+  return Owner.findOne({ _id: userId }, '-salt -password').exec()
     .then(user => { // don't ever give out the password or salt
       if (!user) {
         return res.status(401).end();
@@ -119,11 +119,10 @@ export function me(req, res, next) {
  * Get user info for referral page
   */
 export function getReferralInfo(req, res, next){
-  console.log('getting referral', req.params.id);
-  User.findOne({referralId: req.params.id}, '-salt -password -_id -role -referrals -__v -provider -phone').exec()
+  Owner.findOne({referralId: req.params.id}, '-salt -password -_id -role -referrals -__v -provider -phone').exec()
     .then(user => {
       if (!user) {
-        res.redirect('/');
+        return res.status(401).end();
       }
       res.json(user);
     })
